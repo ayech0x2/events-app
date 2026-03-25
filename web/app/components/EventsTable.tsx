@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
+import { useDate } from "../hooks/useDate";
 import EventService from "../services/event";
 import { Event } from "../types";
-import { useDate } from "../hooks/useDate";
-import { useRouter } from "next/navigation";
+import EyeIcon from "./svg/EyeIcon";
+import TrashIcon from "./svg/TrashIcon";
 
 export default function EventsTable() {
   const { formatDate } = useDate();
@@ -18,6 +20,9 @@ export default function EventsTable() {
   }, []);
 
   const handleDelete = (id: number) => {
+    if (!confirm("Are you sure you want to delete this event?")) {
+      return;
+    }
     service.deleteOne(id).then(() => {
       setEvents(events.filter((event) => event.id !== id));
     });
@@ -63,15 +68,15 @@ export default function EventsTable() {
               <td className="px-4 py-2 text-sm text-gray-700 flex gap-2">
                 <button
                   onClick={() => handleSee(event.id)}
-                  className="text-blue-500  rounded cursor-pointer"
+                  className="h-10 w-10 bg-blue-500 text-white  rounded cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Consulter
+                  <EyeIcon />
                 </button>
                 <button
                   onClick={() => handleDelete(event.id)}
-                  className="text-red-500 px-4 py-2 rounded cursor-pointer"
+                  className="h-10 w-10 bg-red-500 text-white  rounded cursor-pointer flex items-center justify-center gap-2"
                 >
-                  Supprimer
+                  <TrashIcon />
                 </button>
               </td>
             </tr>
