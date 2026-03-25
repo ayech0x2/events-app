@@ -16,6 +16,6 @@ export async function POST(request: Request) {
 }
 
 export async function GET() {
-  const events = await sql`SELECT * FROM events`;
+  const events = await sql`SELECT * FROM events ORDER BY id DESC`;
   return Response.json(events);
 }
