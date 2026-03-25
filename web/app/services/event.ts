@@ -1,4 +1,4 @@
-import { CreateEventInput } from "../types";
+import { CreateEventInput, Event } from "../types";
 
 export default class EventService {
   private baseUrl = "/api/events";
@@ -28,6 +28,13 @@ export default class EventService {
 
   async getAll() {
     const response = await fetch(this.baseUrl);
-    return response.json();
+    return response.json() as Promise<Array<Event>>;
+  }
+
+  async deleteOne(id: number) {
+    const response = await fetch(`${this.baseUrl}/${id}`, {
+      method: "DELETE",
+    });
+    return response.ok;
   }
 }
