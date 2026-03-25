@@ -1,9 +1,10 @@
-import { Text, View } from "react-native";
+import EventsList from "@/components/EventsList";
+import { Box } from "@/restyle";
 
-export default function MainIndex() {
+export default function Index() {
   return (
-    <View>
-      <Text>Home screen</Text>
-    </View>
+    <Box padding="m" backgroundColor="bg" flex={1}>
+      <EventsList />
+    </Box>
   );
 }
