@@ -28,15 +28,24 @@ export function EventDetails({ id }: { id: string }) {
         label="Date de début"
         value={formatDate(event?.date || "")} // TODO: fix this
       />
+
       <div>
         <span className="text-gray-500">
-          Inscriptions ({event?.registrations.length}):
+          Inscriptions ({event?.registrations?.length}):
         </span>
-        <div className="font-semibold">
-          {event?.registrations
-            .map((registration) => registration.user.name)
-            .join(", ")}
-        </div>
+        <ul className="flex flex-col gap-2">
+          {event?.registrations?.map((registration) => (
+            <li key={registration.id} className="flex items-center gap-2">
+              <div className="flex items-center gap-2">
+                <span className="font-semibold">{registration.user.name}</span>
+              </div>
+              -
+              <div className="flex items-center gap-2 text-gray-500">
+                <span>{registration.user.email}</span>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
